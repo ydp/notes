@@ -45,7 +45,7 @@ date: 2016-12-23 10:34:58
 
 #### 踩过的坑 ####
 
-不小心把其中一台机器的22端口给禁掉了，使用的命令
+* 不小心把其中一台机器的22端口给禁掉了，使用的命令
 ```shell
 iptables -A INPUT -p tcp --dport 22  -j REJECT --reject-with icmp-port-unreachable
 ```
@@ -55,6 +55,15 @@ iptables -A INPUT -i eth1 -p tcp --dport 22  -j REJECT --reject-with icmp-port-u
 ```
 配置好之后，怎么看每条规则是对应的哪个网卡，最好使用最详细的查看命令 iptables -nvL --line-number，这个命令就会显示网卡信息
 
+* 扫描端口的时候漏了部分端口
 
+开始所有工作前，我先安装了nmap `yum install nmap`，扫描机器目前对外开放的所有端口：
+```shell
+nmap 127.0.0.1
+```
+这个默认只扫描一部分端口，扫描所有端口需要使用：
+```shell
+nmap -p 1-65535 127.0.0.1
+```
 
 
